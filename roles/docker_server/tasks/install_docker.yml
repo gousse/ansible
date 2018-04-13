@@ -1,0 +1,34 @@
+---
+- name: install packages
+  package: name="{{item}}" state=present
+  with_items:
+    - apt-transport-https
+    - ca-certificates
+    - curl
+    - haveged
+
+- name: add docker repository key
+  shell: "curl -fsSL https://download.docker.com/linux/{{ansible_lsb.id | lower}}/gpg | sudo apt-key add -"
+
+- name: add docker repository
+  apt_repository:
+    repo: "deb [arch=amd64] https://download.docker.com/linux/{{ansible_lsb.id | lower}} {{ansible_lsb.codename | lower}} stable"
+    #repo: "deb [arch=amd64] https://download.docker.com/linux/ubuntu zesty stable"
+    state: present
+
+- name: update repo
+  apt: update_cache=yes cache_valid_time=3600
+  become: yes
+
+- name: install packages
+  package: name=docker-ce state=present
+
+- file: path=/etc/systemd/system/docker.service.d state=directory mode=0755 owner=root group=staff
+
+- name: push http-proxy.conf
+  template:
+    src: http-proxy.conf.j2
+    dest: /etc/systemd/system/docker.service.d/http-proxy.conf
+  when: use_proxy
+  notify:
+    - restart docker

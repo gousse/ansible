@@ -1,0 +1,17 @@
+---
+- name: manage local user
+  hosts: localhost
+
+  tasks:
+    - set_fact: local_username="{{ansible_user_id}}"
+
+- name: install docker
+  hosts: localhost
+  become: yes
+  environment: "{% if use_proxy == true %}{{ proxy }}{% else %}{{proxy=false}}{% endif %}"
+
+  roles:
+    - docker_server
+
+  tasks:
+    - user: name="{{local_username}}" groups=docker append=yes

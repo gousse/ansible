@@ -1,0 +1,7 @@
+---
+- name: manage aliases
+  hosts: all
+  gather_facts: False
+
+  roles:
+    - bashaliases

@@ -1,0 +1,31 @@
+---
+- name: Manage aliases 
+  copy:
+    dest: "~/.bash_aliases"
+    content: |
+      alias ll='ls -l'
+      alias la='ls -A'
+      alias l='ls -CF'
+      set_proxy() {
+        export http_proxy="{{proxy.http_proxy}}";
+        export https_proxy="{{proxy.https_proxy}}";
+        export ftp_proxy="{{proxy.http_proxy}}"
+        export no_proxy="{{proxy.no_proxy}}"
+      }
+      unset_proxy(){
+        unset http_proxy
+        unset https_proxy
+        unset ftp_proxy
+        unset no_proxy
+      }
+  
+- name: Manage aliases for root
+  become: yes
+  blockinfile:
+    dest: /root/.bashrc
+    block: |
+      export LS_OPTIONS='--color=auto'
+      eval "`dircolors`"
+      alias ls='ls $LS_OPTIONS'
+      alias ll='ls $LS_OPTIONS -l'
+      alias l='ls $LS_OPTIONS -lA'

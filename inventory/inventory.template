@@ -1,0 +1,5 @@
+#this inventory is generated dynamically by terraform at deployement step 10
+[masters]
+master-01 ansible_ssh_host=127.0.0.1 ansible_ssh_user=ubuntu
+[nodes]
+node-01 ansible_ssh_host=127.0.0.1 ansible_ssh_user=ubuntu 
