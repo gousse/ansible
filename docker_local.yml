@@ -8,7 +8,6 @@
 - name: install docker
   hosts: localhost
   become: yes
-  environment: "{% if use_proxy == true %}{{ proxy }}{% else %}{{proxy=false}}{% endif %}"
 
   roles:
     - docker_server
