@@ -1,0 +1,22 @@
+---
+- name: install uxrvt and plugins
+  hosts: localhost
+
+  tasks:
+    - name: install package
+      become: yes
+      package:
+        name: rxvt-unicode-256color
+        state: latest
+
+    - name: install font-size plugin
+      become: yes
+      get_url:
+        url: 'https://raw.githubusercontent.com/majutsushi/urxvt-font-size/master/font-size'
+        dest: /usr/lib/urxvt/perl/font-size
+
+
+    - name: install .Xdefaults file
+      copy:
+        src: .Xdefaults
+        dest: $HOME/.Xdefaults
