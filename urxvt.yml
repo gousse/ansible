@@ -15,10 +15,6 @@
         url: 'https://raw.githubusercontent.com/majutsushi/urxvt-font-size/master/font-size'
         dest: /usr/lib/urxvt/perl/font-size
 
-    - name: debug
-      debug:
-        var: playbook_dir
-
     - name: install .Xdefaults file
       file:
         src: "{{playbook_dir}}/../urxvt/.Xdefaults"
