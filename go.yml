@@ -51,4 +51,3 @@
             export PATH="$PATH:$GOPATH/bin"
           fi
 
-
