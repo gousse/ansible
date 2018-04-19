@@ -46,6 +46,9 @@
       if [ -d "$HOME/Dropbox/dev/go" ] ; then
         export GOPATH="$HOME/Dropbox/dev/go"
         export PATH="$PATH:$GOPATH/bin"
+      else
+        export GOPATH="$HOME/go"
+        export PATH="$PATH:$GOPATH/bin"
       fi
 
 - name: add it to .profile
