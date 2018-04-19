@@ -12,19 +12,25 @@
   register: pwrlconf
 
 - name: default conf
-  when: pwrlconf.stat.exists == false
   copy:
-    dest: "{{ansible_user_dir}}/.config/powerline-go/config.sh"
+    dest: "{{ansible_user_dir}}/.config/powerline-go/default.sh"
     content: |
       #!/bin/bash
       # https://github.com/justjanne/powerline-go
       function _update_ps1() {
-          PS1="$(~/go/bin/powerline-go -error $?)"
+          PS1="$(powerline-go -error $?)"
       }
 
       if [ "$TERM" != "linux" ]; then
           PROMPT_COMMAND="_update_ps1; $PROMPT_COMMAND"
       fi
+
+- name: set default config if not exist
+  file:
+    src: "{{ansible_user_dir}}/.config/powerline-go/default.sh"
+    dest: "{{ansible_user_dir}}/.config/powerline-go/config.sh"
+    state: link
+  when: pwrlconf.stat.exists == false
 
 - name: activate powerline shell prompt in bashrc
   lineinfile:
