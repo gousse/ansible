@@ -17,6 +17,7 @@
     dest: "{{ansible_user_dir}}/.config/powerline-go/config.sh"
     content: |
       #!/bin/bash
+      # https://github.com/justjanne/powerline-go
       function _update_ps1() {
           PS1="$(~/go/bin/powerline-go -error $?)"
       }
