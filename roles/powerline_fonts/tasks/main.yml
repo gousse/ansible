@@ -1,0 +1,11 @@
+---
+- name: git clone powerline fonts
+  become: yes
+  git:
+    repo: "https://github.com/powerline/fonts.git"
+    depth: 1
+    dest: "/usr/local/share/fonts/powerline"
+
+- name: install fonts
+  become: yes
+  shell: "/usr/local/share/fonts/powerline/install.sh"
