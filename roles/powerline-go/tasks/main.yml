@@ -1,0 +1,32 @@
+---
+- name: go get powerline-go
+  shell: "go get -u github.com/justjanne/powerline-go"
+
+- file:
+    path: "{{ansible_user_dir}}/.config/powerline-go"
+    state: directory
+    mode: 0755
+
+- stat:
+    path: "{{ansible_user_dir}}/.config/powerline-go/config.sh"
+  register: pwrlconf
+
+- name: default conf
+  when: pwrlconf.stat.exists == false
+  copy:
+    dest: "{{ansible_user_dir}}/.config/powerline-go/config.sh"
+    content: |
+      #!/bin/bash
+      function _update_ps1() {
+          PS1="$(~/go/bin/powerline-go -error $?)"
+      }
+
+      if [ "$TERM" != "linux" ]; then
+          PROMPT_COMMAND="_update_ps1; $PROMPT_COMMAND"
+      fi
+
+- name: activate powerline shell prompt in bashrc
+  lineinfile:
+    path: "{{ansible_user_dir}}/.bashrc"
+    regexp: '^if \[ -f ~/.config/powerline-go/config.sh *'
+    line: 'if [ -f ~/.config/powerline-go/config.sh ]; then . ~/.config/powerline-go/config.sh ; fi'

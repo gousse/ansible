@@ -1,0 +1,7 @@
+---
+- name: install powerline-go and related fonts
+  hosts: all
+
+  roles:
+    - powerline-go
+    - powerline_fonts
