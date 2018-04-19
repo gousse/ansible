@@ -1,6 +1,6 @@
 ---
 - name: install uxrvt and plugins
-  hosts: localhost
+  hosts: all
 
   tasks:
     - name: install package
