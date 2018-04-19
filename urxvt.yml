@@ -15,6 +15,12 @@
         url: 'https://raw.githubusercontent.com/majutsushi/urxvt-font-size/master/font-size'
         dest: /usr/lib/urxvt/perl/font-size
 
+    - name: install keyboard-select plugin
+      become: yes
+      get_url:
+        url: 'https://raw.githubusercontent.com/muennich/urxvt-perls/master/keyboard-select'
+        dest: /usr/lib/urxvt/perl/keyboard-select
+
     - name: install .Xdefaults file
       file:
         src: "{{playbook_dir}}/../urxvt/.Xdefaults"
