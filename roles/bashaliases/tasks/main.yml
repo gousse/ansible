@@ -6,18 +6,12 @@
       alias ll='ls -l'
       alias la='ls -A'
       alias l='ls -CF'
-      set_proxy() {
-        export http_proxy="{{proxy.http_proxy}}";
-        export https_proxy="{{proxy.https_proxy}}";
-        export ftp_proxy="{{proxy.http_proxy}}"
-        export no_proxy="{{proxy.no_proxy}}"
-      }
-      unset_proxy(){
-        unset http_proxy
-        unset https_proxy
-        unset ftp_proxy
-        unset no_proxy
-      }
+
+      CMD=$(which kubectl)
+      if [ $? == 0 ] ; then
+       source <(kubectl completion bash)
+      fi
+
   
 - name: Manage aliases for root
   become: yes
