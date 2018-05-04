@@ -9,17 +9,21 @@
         name: rxvt-unicode-256color
         state: latest
 
+    - name: check lib dir
+      become: yes
+      file: path="/usr/local/lib/urxvt" state="directory" mode=0755 owner=root group=staff
+
     - name: install font-size plugin
       become: yes
       get_url:
         url: 'https://raw.githubusercontent.com/majutsushi/urxvt-font-size/master/font-size'
-        dest: /usr/lib/urxvt/perl/font-size
+        dest: /usr/local/lib/urxvt/font-size
 
     - name: install keyboard-select plugin
       become: yes
       get_url:
         url: 'https://raw.githubusercontent.com/muennich/urxvt-perls/master/keyboard-select'
-        dest: /usr/lib/urxvt/perl/keyboard-select
+        dest: /usr/local/lib/urxvt/keyboard-select
 
     - name: install .Xdefaults file
       file:
