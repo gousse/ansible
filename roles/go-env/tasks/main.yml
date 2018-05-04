@@ -1,0 +1,26 @@
+---
+- set_fact:
+    homedir: "{{ansible_user_dir}}"
+
+- name: declare GOROOT AND PATH
+  copy:
+    dest: "$HOME/.goprofile"
+    content: |
+      #!/bin/bash
+      if [ -d "/usr/local/go/bin" ] ; then
+        export GOROOT=/usr/local/go
+        export PATH="$PATH:$GOROOT/bin"
+      fi
+      if [ -d "$HOME/Dropbox/dev/go" ] ; then
+        export GOPATH="$HOME/Dropbox/dev/go"
+        export PATH="$PATH:$GOPATH/bin"
+      else
+        export GOPATH="$HOME/go"
+        export PATH="$PATH:$GOPATH/bin"
+      fi
+
+- name: add it to .bashrc
+  lineinfile:
+    path: "{{ansible_user_dir}}/.bashrc"
+    regexp: '^if \[ -f ~/.goprofile'
+    line: 'if [ -f ~/.goprofile ]; then . ~/.goprofile ; fi'

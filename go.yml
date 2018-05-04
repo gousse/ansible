@@ -1,6 +1,14 @@
 ---
-- name: install go 
+- name: install go and config for root 
   hosts: all
+  become: yes
 
   roles:
-    - go
+    - go-install
+    - go-env
+
+- name: config go for user
+  hosts: all
+  
+  roles:
+    - go-env
