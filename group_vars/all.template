@@ -6,4 +6,4 @@ proxy:
 
 deploy_user: ubuntu
 
-go_version: 1.10.1
+go_version: 1.12.7
