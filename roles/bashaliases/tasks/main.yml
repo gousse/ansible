@@ -10,6 +10,8 @@
       CMD=$(which kubectl)
       if [ $? == 0 ] ; then
        source <(kubectl completion bash)
+       alias k=kubectl
+       complete -F __start_kubectl k
       fi
 
   
@@ -23,3 +25,5 @@
       alias ls='ls $LS_OPTIONS'
       alias ll='ls $LS_OPTIONS -l'
       alias l='ls $LS_OPTIONS -lA'
+      alias k=kubectl
+      complete -F __start_kubectl k
